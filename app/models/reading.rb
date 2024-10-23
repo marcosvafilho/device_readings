@@ -2,7 +2,7 @@ class Reading < ApplicationMemory
   attribute :id, :string, default: -> { SecureRandom.uuid }
   attribute :device_id, :string
   attribute :timestamp, :datetime
-  attribute :count, :integer
+  attribute :count # can't typecast to integer, otherwise it bypasses validation with value 0
 
   with_options presence: true do
     validates :device_id,
