@@ -26,6 +26,21 @@ module ActiveMemory
         end
       end
 
+      def find_or_create_by!(attributes)
+        if (item = find_by(attributes))
+          item
+        else
+          create!(attributes)
+        end
+      end
+
+      def create!(attributes = {})
+        item = new(attributes)
+
+        item.save!
+        item
+      end
+
       def where(attributes)
         storage.values.select do |item|
           attributes.all? { |attr_key, attr_value| item.send(attr_key) == attr_value }
