@@ -13,6 +13,18 @@ module ActiveMemory
       def find(id)
         storage[id]
       end
+
+      def find_by(attributes)
+        item = storage.values.find do |item|
+          attributes.all? { |attr_key, attr_value| item.send(attr_key) == attr_value }
+        end
+      end
+
+      def where(attributes)
+        storage.values.select do |item|
+          attributes.all? { |attr_key, attr_value| item.send(attr_key) == attr_value }
+        end
+      end
     end
 
     def initialize(attributes = {})
