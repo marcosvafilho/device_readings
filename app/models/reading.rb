@@ -10,7 +10,7 @@ class Reading < ApplicationMemory
               :count
   end
 
-  validates :timestamp, uniqueness: { scope: :device_id }
+  validates :timestamp, datetime: true, uniqueness: { scope: :device_id }
   validates :count, numericality: { only_integer: true }
 
   # we don't want to raise RecordInvalid for duplicate records
