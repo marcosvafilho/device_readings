@@ -9,4 +9,6 @@ class Reading < ApplicationMemory
               :timestamp,
               :count
   end
+
+  validates :count, numericality: { only_integer: true }
 end

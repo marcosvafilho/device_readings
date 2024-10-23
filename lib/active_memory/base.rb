@@ -12,8 +12,12 @@ module ActiveMemory
         @storage ||= Concurrent::Hash.new
       end
 
-      def find(id)
-        storage[id]
+      def find!(id)
+        if (item = storage[id])
+          item
+        else
+          raise ActiveMemory::Errors::RecordNotFound, "Couldn't find #{name} with id=#{id}"
+        end
       end
 
       def find_by(attributes)
