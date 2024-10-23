@@ -3,4 +3,10 @@ class Reading < ApplicationMemory
   attribute :device_id, :string
   attribute :timestamp, :datetime
   attribute :count, :integer
+
+  with_options presence: true do
+    validates :device_id,
+              :timestamp,
+              :count
+  end
 end

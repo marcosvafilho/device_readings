@@ -4,6 +4,8 @@ module ActiveMemory
   class Base
     include ActiveModel::Model
     include ActiveModel::Attributes
+    include ActiveModel::Validations
+    include ActiveMemory::Errors
 
     class << self
       def storage
@@ -32,8 +34,16 @@ module ActiveMemory
     end
 
     def save
+      return false unless valid?
+
       self.class.storage[id] = self
       self
+    end
+
+    def save!
+      raise ActiveMemory::Errors::RecordInvalid, errors.full_messages.join(", ") if invalid?
+
+      save
     end
   end
 end
