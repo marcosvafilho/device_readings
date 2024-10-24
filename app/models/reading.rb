@@ -3,11 +3,13 @@ class Reading < ApplicationMemory
   attribute :device_id, :string
   attribute :timestamp, :datetime
   attribute :count # can't typecast to integer, otherwise it bypasses validation with value 0
+  attribute :offset, :string
 
   with_options presence: true do
     validates :device_id,
               :timestamp,
-              :count
+              :count,
+              :offset
   end
 
   validates :timestamp, datetime: true, uniqueness: { scope: :device_id }

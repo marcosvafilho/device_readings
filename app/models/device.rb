@@ -7,13 +7,16 @@ class Device < ApplicationMemory
 
   has_many :readings
 
-  def latest_timestamp
+  def latest_timestamp(offset = "")
     latest = readings.max_by { |reading| reading.timestamp }
 
     return if latest.nil?
 
+    offset = offset.presence || latest.offset
+
     latest.timestamp
           .to_datetime
+          .new_offset(offset)
           .iso8601
   end
 
