@@ -6,6 +6,7 @@ module ActiveMemory
     include ActiveModel::Attributes
     include ActiveModel::Validations
     include ActiveMemory::Errors
+    include ActiveMemory::Associations
 
     class << self
       def storage
